@@ -4,7 +4,7 @@ const expressFileUpload = require('express-fileupload')
 const fs=require('fs')
 
 app.listen(3000, () => console.log("Servidor encendido en el puerto 3000"))
-app.use(express.static("deleteImg"))
+app.use(express.static("public"))
 app.use(expressFileUpload({
     limits: {
         fileSize: 5000000
@@ -31,7 +31,7 @@ app.post("/imagen", (req, res) => {
         name
     } = target_file
     name=`imagen-${posicion}.jpg`   
-    target_file.mv(`${__dirname}/deleteImg/${name}`, (err) => {
+    target_file.mv(`${__dirname}/imgs/${name}`, (err) => {
         res.sendFile(__dirname+"/collage.html")
     })
 })
@@ -39,12 +39,8 @@ app.post("/imagen", (req, res) => {
 
 //muestro la información del formulario
 app.get("/deleteImg/:nombre",function(req,res){
-
     const{nombre}=req.params;
-    console.log("nombre",nombre)
-    fs.unlink(`${__dirname}/deleteImg/${nombre}`,(err)=>{
+    fs.unlink(`${__dirname}/imgs/${nombre}`,(err)=>{
         res.send(`imagen ${nombre} fue eliminada con exito`)
-    })
-    
-
+    })  
 })
