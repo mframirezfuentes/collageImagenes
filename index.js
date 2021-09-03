@@ -5,6 +5,7 @@ const fs=require('fs')
 
 app.listen(3000, () => console.log("Servidor encendido en el puerto 3000"))
 app.use(express.static("public"))
+app.use("/imgs", express.static("imgs"))
 app.use(expressFileUpload({
     limits: {
         fileSize: 5000000
@@ -31,7 +32,7 @@ app.post("/imagen", (req, res) => {
         name
     } = target_file
     name=`imagen-${posicion}.jpg`   
-    target_file.mv(`${__dirname}/imgs/${name}`, (err) => {
+    target_file.mv(`${__dirname}/public/imgs/${name}`, (err) => {
         res.sendFile(__dirname+"/collage.html")
     })
 })
