@@ -5,7 +5,6 @@ const fs=require('fs')
 
 app.listen(3000, () => console.log("Servidor encendido en el puerto 3000"))
 app.use(express.static("public"))
-app.use("/imgs", express.static("imgs"))
 app.use(expressFileUpload({
     limits: {
         fileSize: 5000000
